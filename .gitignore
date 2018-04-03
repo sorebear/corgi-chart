@@ -5,4 +5,6 @@ node_modules
 # Build directory
 public/
 .DS_Store
+.env
+credentials.js
 yarn-error.log

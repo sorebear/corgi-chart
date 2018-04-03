@@ -4,4 +4,8 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
+ exports.onPreBootstrap = () => {
+   require('dotenv').config();
+  }
+
  // You can delete this file if you're not using it
