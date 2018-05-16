@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import withAuthorization from '../components/Session/withAuthorization';
-import { db } from '../firebase';
+import { db, auth } from '../firebase';
 
 const fromObjectToList = (object) =>
   object
@@ -34,15 +34,13 @@ class HomePage extends Component {
   componentDidMount() {
     // Get Boards
     console.log(window.location.href);
-    const redirectPath = window.location.href;
     window.open(
       'https://trello.com/1/authorize' +
       '?expiration=1day' +
       '&name=CorgiChart' +
       '&scope=read,write' +
       '&callback_method=postMessage' +
-      '&response_type=token' +
-      // `&return_url=${redirectPath}` +
+      '&response_type=token' + 
       `&key=${this.API_KEY}`);
     db.onceGetUsers().then(snapshot =>
       this.setState(() => ({ users: fromObjectToList(snapshot.val()) }))
@@ -50,6 +48,8 @@ class HomePage extends Component {
   }
 
   render() {
+    console.log('DB', db);
+    console.log('withAuth', withAuthorization());
     const { users } = this.state;
 
     return (
@@ -64,7 +64,6 @@ class HomePage extends Component {
           Save Key
         </button>
         <p>The Home Page is accessible by every signed in user.</p>
-
         { !!users.length && <UserList users={users} /> }
       </div>
     );

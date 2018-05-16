@@ -12,3 +12,8 @@ export const onceGetUsers = () =>
   db.ref('users').once('value');
 
 // Other db APIs ...
+export const setTrelloKey = (id, trelloKey) => (
+  db.ref(`users/${id}`).set({
+    trelloKey,
+  })
+);
